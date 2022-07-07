@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @*<link rel="icon" type="image/ico" href="~/Content/Images/icon.ico" />*@
+    <link href="~/Content/Styles/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/Bootstrap/bootstrap.min.css">
+    <script src="~/Content/Bootstrap/jquery.min.js"></script>
+    <script src="~/Content/Bootstrap/popper.min.js"></script>
+    <script src="~/Content/Bootstrap/bootstrap.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <a href="~/home/index" class="navbar-brand"><img src="~/Content/Images/icon.ico"></a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sitebutton">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="sitebutton" class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="~/home/index" class="nav-link">الرئيسية</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">من نحن</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">اتصل بنا</a></li>
+                </ul>
+                @if(Request.Cookies["cooklogin"] == null )
+                {
+                <ul class="navbar-nav mr-auto" id="istLog">
+                    <li class="nav-item"><a href="~/Users/SignUp" class="nav-link btn btn-info">الاشتراك</a></li>
+                    <li class="nav-item"><a href="~/Users/LogIn" class="nav-link btn btn-info">تسجيل الدخول</a></li>
+                </ul>
+                }
+                else
+                {
+                <ul class="navbar-nav mr-auto" id="welcomelist">
+                    <li class="nav-item"> Welcome : <a href="#">@HttpUtility.UrlDecode(Request.Cookies["cooklogin"]["username"])</a></li>
+                    <li class="nav-item">
+                        @Html.ActionLink("تسجيل خروح", "logout", "Users", null, new {@class="btn btn-danger"})
+                    </li>
+                </ul>
+                }
+            </div>
+        </nav>
+    </header>  
+    <div class="container body-content">
+
+
+        @if(Request.Cookies["cooklogin"] != null)
+        {
+        <div id="lstData">
+            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#btnlist">البيانات</button>
+            <div class="collapse" id="btnlist">
+                <ul class="nav">
+                    <li class="nav-item btn btn-outline-success"><a href="~/customers/index" class="nav-link">العملاء</a></li>
+                    <li class="nav-item btn btn-outline-success"><a href="~/suppliers/index" class="nav-link">الموردون</a></li>
+                    <li class="nav-item btn btn-outline-success">
+                        <div class="dropdown">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+                                الأصناف
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="~/categories/index" class="dropdown-item">مجموعات الأصناف</a>
+                                <a href="~/products/index" class="dropdown-item">الأصناف</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        }
+
+
+
+        @RenderBody()
+    </div>
+        <footer>
+            <div class="row">
+                <div class="col-md-4">محمد الجنيد</div>
+                <div class="col-md-4 centertext">جميع الحقوق محفوظة</div>
+                <div class="col-md-4 lefttext">
+                    <a href="#" target="_blank"><img src="~/Content/Images/fb.png" /></a>
+                    <a href="#" target="_blank"><img src="~/Content/Images/tw.png" /></a>
+                    <a href="#" target="_blank"><img src="~/Content/Images/yt.png" /></a>
+                </div>
+            </div>
+        </footer>
+    
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

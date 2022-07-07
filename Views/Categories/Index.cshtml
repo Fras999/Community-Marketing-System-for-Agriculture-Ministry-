@@ -1,0 +1,50 @@
+﻿@model IEnumerable<mvcCourseProject.Models.Category>
+
+@{
+    ViewBag.Title = "الفئة";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>الفئة</h2>
+@using (Html.BeginForm("Search", "Categories"))
+{
+<p>
+    أسم الفئة
+    @Html.TextBox("CategoryName")
+    <input type="submit" value="بحث" class="btn btn-info" />
+</p>
+}
+
+
+<p>
+    @Html.ActionLink("جديد", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("تعديل", "Edit", new { id = item.CategoryID }) |
+                @Html.ActionLink("تفاصيل", "Details", new { id = item.CategoryID }) |
+                @Html.ActionLink("حذف", "Delete", new { id = item.CategoryID })
+            </td>
+        </tr>
+    }
+
+</table>
